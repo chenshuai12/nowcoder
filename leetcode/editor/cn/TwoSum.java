@@ -46,6 +46,9 @@
 // Related Topics 数组 哈希表 👍 16455 👎 0
 
 package editor.cn;
+
+import java.util.HashMap;
+
 public class TwoSum {
     public static void main(String[] args) {
         Solution solution = new TwoSum().new Solution();
@@ -53,7 +56,14 @@ public class TwoSum {
     //leetcode submit region begin(Prohibit modification and deletion)
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        return null;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for (int i = 0; i <= nums.length - 1; i++){
+            if (map.containsKey(target - nums[i])){
+                return new int[]{map.get(target - nums[i]),i};
+            }
+            map.put(nums[i],i);
+        }
+        return new int[]{0};
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
