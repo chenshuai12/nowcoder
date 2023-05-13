@@ -1,7 +1,6 @@
-### Example user template template
-### Example user template
-
-# IntelliJ project files
+# Created by .ignore support plugin (hsz.mobi)
+nowcoder.iml
+out
 .idea
 *.iml
 out
