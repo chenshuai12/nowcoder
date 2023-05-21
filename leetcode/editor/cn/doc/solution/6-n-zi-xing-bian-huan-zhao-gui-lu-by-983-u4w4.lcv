@@ -1,0 +1,32 @@
+### 解题思路
+
+这种循环还是比较好找规律的：
+1. 将字符串排列成`numRows`行，那么每次是以`2*numRows - 2`的个数作为一次循环。如`numRows = 4`，那么每次是以`nums*2 - 2 = 6`个连续数字作为一次循环。代码中的语句为：`int pos = i % (numRows * 2 - 2);`
+2. 当确定了`pos`之后，当`pos < numRows`时，`res[pos] += s.charAt(i);`；否则，`res[numRows - 2 - pos % numRows] += s.charAt(i);`
+3. 最后将 string 数组拼接起来就好了
+
+### 代码
+
+Java
+
+* java
+
+```java
+class Solution {
+    public String convert(String s, int numRows) {
+      if(numRows == 1) return s;
+      String[] res = new String[numRows];
+      Arrays.fill(res, "");
+      int len = s.length();
+      for(int i = 0; i < len; ++i){
+        int pos = i % (numRows * 2 - 2);
+        if(pos < numRows){
+          res[pos] += s.charAt(i);
+        }
+        else res[numRows - 2 - pos % numRows] += s.charAt(i);
+      }
+      return String.join("", res);
+    }
+}
+```
+

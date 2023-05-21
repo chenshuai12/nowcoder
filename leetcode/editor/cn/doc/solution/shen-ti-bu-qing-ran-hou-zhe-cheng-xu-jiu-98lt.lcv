@@ -1,0 +1,44 @@
+开始上眼一看以为给整个二维平面图，想也没想，就直接看例子了。然后这程序就出来了，调了半天，试了几次，还整能弄出个Z来。
+
+* 
+
+```
+class Solution {
+    public String convert(String s, int numRows) {
+        Map<int[], String> sorder = new HashMap<int[], String>();
+        int index = 0;
+        //行
+        int line = 0;
+        //列
+        int row = 0;
+        //结果
+        Map<Integer, String> result = new HashMap<Integer, String>();
+        // List<String> result = new ArrayList<String>();
+        while(index < s.length()){
+            int[] coordinate = new int[]{line, row};
+            sorder.put(coordinate, s.charAt(index) + "   ");
+            result.put(line, (result.get(line) == null?"":result.get(line)) + s.charAt(index) + "");
+            // result.add(line, s.charAt(index) + "");
+            index++;
+            if((line%(numRows-1) == 0 && (row%(numRows-1)) == 0 && line != 0) || (row%(numRows-1)) != 0){
+                row++;
+                if(row%(numRows-1) == 0){line = 0;continue;}else{
+                    for(int j = 0; j < numRows; j++){
+                        if(j != line - 1){result.put(j, result.get(j) + "   ");}
+                    }
+                }
+            }
+            if(numRows > line && (row%(numRows-1)) == 0 ){line++;}else{line--;}
+        }
+        index = 0;
+        StringBuilder end = new StringBuilder("");
+        while(index < result.size()){
+            end.append(result.get(index) + "\n");
+            index++;
+        }
+        System.out.println(end.toString());
+        return end.toString();
+    }
+}
+```
+

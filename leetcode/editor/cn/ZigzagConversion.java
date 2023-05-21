@@ -1,8 +1,8 @@
 /**
-  * 题目Id：6
-  * 题目：N 字形变换
-  * 日期：2023-05-20 22:21:28
-*/
+ * 题目Id：6
+ * 题目：N 字形变换
+ * 日期：2023-05-20 22:21:28
+ */
 //将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。 
 //
 // 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下： 
@@ -60,16 +60,31 @@
 // Related Topics 字符串 👍 2053 👎 0
 
 package editor.cn;
+
+import java.util.Arrays;
+
 public class ZigzagConversion {
     public static void main(String[] args) {
         Solution solution = new ZigzagConversion().new Solution();
     }
+
     //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-    public String convert(String s, int numRows) {
-        return "";
+    class Solution {
+        public String convert(String s, int numRows) {
+            if (numRows == 1) return s;
+            String[] res = new String[numRows];
+            Arrays.fill(res, "");
+            int len = s.length();
+            for (int i = 0; i < len; ++i) {
+                int pos = i % (numRows * 2 - 2);
+                if (pos < numRows) {
+                    res[pos] += s.charAt(i);
+                }
+                else res[numRows - 2 - pos % numRows] += s.charAt(i);
+            }
+            return String.join("", res);
+        }
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }

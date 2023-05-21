@@ -1,0 +1,44 @@
+### 解题思路
+
+执行用时：
+3 ms, 在所有 Java 提交中击败了98.09%的用户
+内存消耗：38.5 MB, 在所有 Java 提交中击败了90.88%的用户
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public String convert(String s, int numRows) {
+        if (numRows == 1 || s.length() <= numRows) {
+            return s;
+        }
+
+        StringBuilder result = new StringBuilder();
+        int indexSpan = 2 * numRows - 2;
+        for (int i = 0; i < numRows; i++) {
+            if (i == 0) {
+                for (int j = 0; j < s.length(); j += indexSpan) {
+                    result.append(s.charAt(j));
+                }
+            } else if (i == numRows - 1) {
+                for (int j = numRows - 1; j < s.length(); j += indexSpan) {
+                    result.append(s.charAt(j));
+                }
+            } else {
+                for (int j = i; j < s.length(); j += indexSpan) {
+                    result.append(s.charAt(j));
+                    int next = j + indexSpan - 2 * i;
+                    if (next < s.length()) {
+                        result.append(s.charAt(next));
+                    }
+                }
+            }
+        }
+
+        return result.toString();
+    }
+}
+```
+

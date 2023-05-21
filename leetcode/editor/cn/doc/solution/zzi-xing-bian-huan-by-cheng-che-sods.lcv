@@ -1,0 +1,41 @@
+**解题思路**
+* 看题目描述复杂，但其实就是numRows个字符串，从上到下再从下到上，如此循环往复添加s中的字符即可，最终将结果拼起来返回即可。
+
+* 
+
+```
+class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows == 1) return s;
+        StringBuilder[] strArr = new StringBuilder[numRows];
+        for(int i=0;i<numRows;i++){
+            strArr[i] = new StringBuilder();
+        }
+        boolean down = true;
+        int index = 0;
+        for(char c : s.toCharArray()){
+            if(index < numRows-1 && down){
+                strArr[index].append(c);
+                index++;
+            }else if(index == numRows-1){
+                strArr[index].append(c);
+                index--;
+                down = false;
+            }else if(index > 0 && !down){
+                strArr[index].append(c);
+                index--;
+            }else if(index == 0){
+                strArr[index].append(c);
+                index++;
+                down = true;
+            }
+        }
+        StringBuilder res = new StringBuilder();
+        for(int i=0;i<numRows;i++){
+            res.append(strArr[i].toString());
+        }
+        return res.toString();
+    }
+}
+```
+

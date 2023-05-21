@@ -1,0 +1,56 @@
+### 解题思路
+
+此处撰写解题思路
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public String convert(String s, int numRows) {
+        //如果输入的最大行数小于2或者大于字符串的长度，那就说明返回原本字符串即可
+        if (numRows < 2 || numRows >= s.length()) {
+            return s;
+        }
+
+        //初始化字符串集合，这个list的意义在于将结果当成是几行不同的字符串，最后这几行不同的字符串按序初始化成结果就是最终结果
+        List<StringBuilder> resultList = new ArrayList<>();
+        for (int i = 0; i < numRows; i++) {
+            resultList.add(new StringBuilder());
+        }
+
+        //记录当前跑到哪一行
+        int curRows = 0;
+        //是否往下走，这个布尔值的意义在于检验下一步是要往上一行存数据还是下一行
+        boolean down = false;
+
+        //遍历字符串
+        for (char ch : s.toCharArray()) {
+            //以第一次遍历为例子，此时获得的是0，即第一行的字符串增加这个字符
+            resultList.get(curRows).append(ch);
+            //每次增加字符后，校验是否继续往下，校验规则就是是否达到第一行或者最后一行
+            //以第一次遍历为例，此时curRows为0，说明在第一行，需要往下，而初始化的down为false，因此取他 !down = true，表示继续往下走
+            if (curRows == 0 || curRows == numRows - 1) {
+                down = !down;
+            }
+
+            // 如果是往下走，即down = true，curRows就+1，反之取1
+            curRows += down ? 1 : -1;
+        }
+
+        //这是最终的字符串结果，聚合resultList
+        StringBuilder result = new StringBuilder();
+
+        //遍历那几行字符串集合
+        for (StringBuilder sb : resultList) {
+            //按顺序添加行数
+            result.append(sb);
+        }
+
+        //由于返回值需要是个String，所以转换后再返回
+        return result.toString();
+    }
+}
+```
+

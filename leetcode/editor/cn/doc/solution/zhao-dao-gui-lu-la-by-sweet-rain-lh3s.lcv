@@ -1,0 +1,55 @@
+> Problem: [6. N 字形变换](https://leetcode.cn/problems/zigzag-conversion/description/)
+
+[TOC]
+时间：3 ms，打败 89.18%；空间：41.3，打败 87.75%
+
+# Code
+
+* []
+
+```Java
+
+class Solution {
+    public String convert(String s, int numRows) {
+        // 如果行数为 1，直接返回 s
+        if ( numRows == 1 ) return s;
+        int len = s.length();
+        // StringBuffer 比 String 节省空间
+        StringBuffer sb = new StringBuffer();
+        // 行数为 2，奇数项和偶数项拆开 
+        if ( numRows == 2 ) {
+            // 先添加所有偶数项
+            for ( int i = 0; i < len; i += 2 ) {
+                sb.append( s.charAt( i ) );
+            }
+            // 后添加所有奇数项
+            for ( int i = 1; i < len; i += 2 ) {
+                sb.append( s.charAt( i ) );
+            }
+            return new String( sb );
+        }
+        // 每一行的规律，除了第一个后面都是当前字符位置加 before 或 after，before 和 after 交替加
+        int n = 1, before = numRows * 2 - 2, after = 0;
+        // 设置限制，防止超出
+        int limit = ( s.length() / before + 1 ) * before;
+        while ( n <= numRows ) {
+            // temp 存放交替的 before 和 after
+            int temp = before, count = 0;
+            for ( int i = n - 1; i < len && i < limit; i += temp ) {
+                sb.append( s.charAt( i ) );
+                // 添加字符后，轮数 +1
+                count ++;
+                // 实现 before 和 after 的交替
+                if ( before != 0 && count % 2 != 0 || after == 0 ) temp = before;
+                else temp = after;
+            }
+            // 每一行的规律不一样，将 before 和 after 改变
+            before -= 2;
+            after += 2;
+            n ++;
+        }
+        return new String( sb );
+    }
+}
+```
+
