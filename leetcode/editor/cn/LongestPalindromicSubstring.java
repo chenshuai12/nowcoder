@@ -40,44 +40,43 @@ package editor.cn;
 public class LongestPalindromicSubstring {
     public static void main(String[] args) {
         Solution solution = new LongestPalindromicSubstring().new Solution();
+        String s = solution.longestPalindrome("a");
+        System.out.println(s);
     }
 
     //leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public String longestPalindrome(String s) {
-            if (s == null || s.length() == 0) {
+            if (s == null || s.length()  == 0){
                 return "";
             }
-            int strLen = s.length();
-            int left = 0;
-            int right = 0;
-            int len = 1;
-            int maxStart = 0;
+            int length = 1;
+            int left = 0,right = 0;
             int maxLen = 0;
-
-            for (int i = 0; i < strLen; i++) {
+            int star = 0;
+            for (int i =0;i < s.length(); i++){
                 left = i - 1;
                 right = i + 1;
-                while (left >= 0 && s.charAt(left) == s.charAt(i) ) {
-                    len++;
+                while (left >= 0 && s.charAt(left) == s.charAt(i)){
+                    length++;
                     left--;
                 }
-                while (right < strLen && s.charAt(right) == s.charAt(i)) {
-                    len++;
+                while (right < s.length() && s.charAt(right) == s.charAt(i)){
+                    length++;
                     right++;
                 }
-                while (left >= 0 && right < strLen && s.charAt(right) == s.charAt(left)) {
-                    len = len + 2;
+                while (left >= 0 && right < s.length() && s.charAt(right) == s.charAt(left)){
+                    length = length + 2;
+                    right++;
                     left--;
-                    right++;
                 }
-                if (len > maxLen) {
-                    maxLen = len;
-                    maxStart = left;
+                if (length > maxLen){
+                    maxLen = length;
+                    star = left;
                 }
-                len = 1;
+                length = 1;
             }
-            return s.substring(maxStart + 1, maxStart + maxLen + 1);
+            return s.substring(star + 1,star + maxLen + 1);
         }
     }
 //leetcode submit region end(Prohibit modification and deletion)
